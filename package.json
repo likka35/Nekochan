@@ -1,0 +1,29 @@
+{
+  "name": "nekochan",
+  "version": "1.0.0",
+  "description": "Discord bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lyrith256/Hello.git"
+  },
+  "keywords": [
+    "lol"
+  ],
+  "author": "Lyrith",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Lyrith256/Hello/issues"
+  },
+  "homepage": "https://github.com/Lyrith256/Hello#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-plugin-ja": "^0.1.0"
+  }
+}
