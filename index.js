@@ -19,7 +19,13 @@ client.on('message', async msg => {
                 msg.edit(`pong!`)
             })
     }
-    if (command === 'profile') {
+    else if (command === 'avatar') {
+        const attachments = new Discord.MessageAttachment()
+        .setFile(msg.author.avatarURL())
+        .setName(`${msg.author.username}.png`)
+        msg.channel.send(attachments)
+    }
+    else if (command === 'profile') {
         const embed = new Discord.MessageEmbed()
             .setAuthor(msg.author.tag, msg.author.avatarURL())
             .setColor('#FFFFFF')
@@ -32,7 +38,7 @@ client.on('message', async msg => {
             .addField('Account Created', msg.author.createdAt)
         msg.channel.send(embed)
     }
-    if (command === 'server') {
+    else if (command === 'server') {
         const embed = new Discord.MessageEmbed()
             .setAuthor(msg.guild.name, msg.guild.iconURL())
             .setColor('#FFFFFF')
@@ -50,7 +56,7 @@ client.on('message', async msg => {
             .addField('Server Owner', msg.guild.owner)
         msg.channel.send(embed)
     }
-    if (command === 'banlist') {
+    else if (command === 'banlist') {
         const bans = await msg.guild.fetchBans()
         const embed = new Discord.MessageEmbed()
             .addField('Banlist', bans.map(ban => ban.user.tag).join(', ') || 'none')
