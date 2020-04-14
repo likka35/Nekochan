@@ -12,18 +12,17 @@ client.on('message', async msg => {
     if (msg.author.bot) return;
     let command = msg.content.split(" ")[0];
     command = command.slice(prefix.length);
-    let args = msg.content.split(" ").slice(1);
     if (command === 'ping') {
         msg.channel.send('Please wait...')
             .then((msg) => {
-                msg.edit(`pong!`)
+                msg.edit(`pong!`);
             })
     }
     else if (command === 'avatar') {
         const attachments = new Discord.MessageAttachment()
-        .setFile(msg.author.avatarURL())
-        .setName(`${msg.author.username}.png`)
-        msg.channel.send(attachments)
+            .setFile(msg.author.avatarURL())
+            .setName(`${msg.author.username}.png`)
+        msg.channel.send(attachments);
     }
     else if (command === 'profile') {
         const embed = new Discord.MessageEmbed()
@@ -36,7 +35,7 @@ client.on('message', async msg => {
             .addField('NickName', msg.member.nickname)
             .addField('Join Date', msg.member.joinedAt)
             .addField('Account Created', msg.author.createdAt)
-        msg.channel.send(embed)
+        msg.channel.send(embed);
     }
     else if (command === 'server') {
         const embed = new Discord.MessageEmbed()
@@ -54,13 +53,29 @@ client.on('message', async msg => {
             .addField('Members', msg.guild.memberCount)
             .addField(`Roles`, msg.guild.roles.cache.size)
             .addField('Server Owner', msg.guild.owner)
-        msg.channel.send(embed)
+        msg.channel.send(embed);
+    }
+    else if (command === 'kick') {
+        if (!msg.member.hasPermission('KICK_MEMBERS'))
+            return msg.channel.send(`You Don't have permission to "KICK_MEMBERS"`);
+        if (msg.mentions.members.size !== 1)
+            return msg.channel.send('Please specify one member to Kick');
+        const member = await msg.mentions.members.first().kick()
+        msg.channel.send(`${member.user.tag}をKickしました`);
+    }
+    else if (command === 'ban') {
+        if (!msg.member.hasPermission('BAN_MEMBERS'))
+            return msg.channel.send(`You Don't have permission to "BAN_MEMBERS"`);
+        if (msg.mentions.members.size !== 1)
+            return msg.channel.send('Please specify one member to BAN');
+        const member = await msg.mentions.members.first().ban()
+        msg.channel.send(`${member.user.tag}をBANしました`);
     }
     else if (command === 'banlist') {
         const bans = await msg.guild.fetchBans()
         const embed = new Discord.MessageEmbed()
             .addField('Banlist', bans.map(ban => ban.user.tag).join(', ') || 'none')
-        msg.channel.send(embed)
+        msg.channel.send(embed);
     }
 });
 
